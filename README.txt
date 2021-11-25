@@ -1,0 +1,4 @@
+- Install Node.js
+- in cmd, run 'npm i'
+- in cmd, run 'npm start'
+- go to localhost:3000 in browser

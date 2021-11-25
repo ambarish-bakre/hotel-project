@@ -1,0 +1,87 @@
+<!-- TODO list bookings button -->
+<!-- <div id="bookingToast" class="toast position-absolute top-0 end-0 p-3" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      Booking confirmed. Hope you have a happy stay with us :)
+    </div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div> -->
+
+<h4>Book your rooms</h4>
+
+<form name="addBookingForm" role="form" novalidate autocomplete="off" ng-submit="confirmBooking()">
+  <div class="mb-3">
+    <label for="Name" class="form-label">Name</label>
+    <input type="text" name="Name" class="form-control" id="bookingName" ng-model="newBooking.name"
+      aria-describedby="nameHelp" required="" ng-maxlength=30
+      ng-class="addBookingForm.Name.$valid ? 'is-valid' : 'is-invalid'">
+    <div id="nameHelp" class="form-text">Mandatory. Maximum 30 characters</div>
+  </div>
+  <div class="mb-3">
+    <label for="Email" class="form-label">Email</label>
+    <input type="email" name="Email" class="form-control" id="bookingEmail" ng-model="newBooking.emailId"
+      aria-describedby="emailHelp" ng-maxlength=50 ng-class="addBookingForm.Email.$valid ? 'is-valid' : 'is-invalid'">
+    <div id="emailHelp" class="form-text">Optional. Maximum 50 characters</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="PhoneNumber" class="form-label">Phone Number</label>
+    <div class="input-group">
+      <select class="form-select" aria-label="Phone Number" style="max-width: 15%"
+        ng-model="newBooking.countryPhonePrefix">
+        <option ng-repeat="phoneCode in countryPhoneCodes" value="{{ phoneCode.code }}">
+          {{ phoneCode.code }} - {{ phoneCode.country }}
+        </option>
+      </select>
+      <input type="number" name="PhoneNumber" class="form-control" id="bookingNumber" ng-model="newBooking.phoneNumber"
+        aria-describedby="phoneHelp" ng-maxlength=10 required=""
+        ng-class="addBookingForm.PhoneNumber.$valid ? 'is-valid' : 'is-invalid'">
+    </div>
+    <div id="phoneHelp" class="form-text">Mandatory. Maximum 10 numbers</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="Address" class="form-label">Address</label>
+    <textarea name="Address" class="form-control" id="bookingAddress" rows="3" required="" ng-maxlength=2000
+      ng-model="newBooking.address" ng-class="addBookingForm.Address.$valid ? 'is-valid' : 'is-invalid'"></textarea>
+    <div id="addressHelp" class="form-text">Mandatory. Maximum 2000 characters</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="NoOfPersons" class="form-label">Number of person staying</label>
+    <input type="number" name="NoOfPersons" class="form-control" id="bookingPersons" ng-model="newBooking.noOfPersons"
+      aria-describedby="noOfPersonsHelp" required="" ng-max=99 ng-min=1
+      ng-class="addBookingForm.NoOfPersons.$valid ? 'is-valid' : 'is-invalid'">
+    <div id="noOfPersonsHelp" class="form-text">Mandatory, numeric and maximum 2 digits</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="RoomType" class="form-label">Room type</label>
+    <select class="form-select" aria-label="Room type" style="max-width: 15%" ng-model="newBooking.roomType">
+      <option ng-repeat="roomType in roomTypes" value="{{ roomType.name }}">
+        {{ roomType.name }}
+      </option>
+    </select>
+    <div id="roomTypeHelp" class="form-text">Mandatory</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="NumberOfNights" class="form-label">Number of nights</label>
+    <input type="number" name="NumberOfNights" class="form-control" id="bookingNights" ng-model="newBooking.numberOfNights"
+      aria-describedby="numberOfNightsHelp" required="" ng-min=1
+      ng-class="addBookingForm.NumberOfNights.$valid ? 'is-valid' : 'is-invalid'">
+    <div id="numberOfNightsHelp" class="form-text">Mandatory and numeric</div>
+  </div>
+
+  <div class="mb-3">
+    <button type="button" class="btn btn-secondary" disabled>
+      Number of rooms:<span class="badge badge-light">{{ calculateNumberOfRooms() }}</span>
+    </button>
+  
+    <button type="button" class="btn btn-secondary" disabled>
+      Total cost:<span class="badge badge-light">{{ calculateTotalCost() }}</span>
+    </button>
+  </div>
+  <button type="submit" class="btn btn-primary" ng-disabled="addBookingForm.$invalid">Confirm booking</button>
+</form>
